@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>手势区域滤镜 MVP</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="topbar">
+  <h1>✋ 手势区域滤镜 <span class="badge">MVP</span></h1>
+  <div class="status">
+    <span id="statusCamera" class="chip">摄像头: --</span>
+    <span id="statusModel" class="chip">手势模型: --</span>
+    <span id="statusFace" class="chip">人脸模型: --</span>
+    <span id="statusGesture" class="chip">手势: --</span>
+    <span id="statusFps" class="chip">FPS: --</span>
+  </div>
+</header>
+
+<main>
+  <div class="stage">
+    <canvas id="view" width="640" height="480"></canvas>
+    <div id="overlayHint" class="overlay-hint hidden"></div>
+    <div id="toast" class="toast hidden"></div>
+  </div>
+
+  <section class="panel">
+    <div class="row">
+      <button id="btnCam" class="btn primary">📷 开启摄像头</button>
+      <label>画面源
+        <select id="selCam"><option value="">自动</option></select>
+      </label>
+      <button id="btnFile" class="btn">🖼 图片/视频源</button>
+      <button id="btnMode" class="btn">🖱 鼠标模式</button>
+      <button id="btnShot" class="btn">📸 截图</button>
+      <input type="file" id="fileSrc" accept="image/*,video/*" hidden>
+    </div>
+    <div class="row">
+      <label>滤镜
+        <select id="selFilter"></select>
+      </label>
+      <label>区域大小 <input id="rngRadius" type="range" min="50" max="250" value="100"> <span id="lblRadius">100%</span></label>
+      <label class="chk"><input id="chkSkeleton" type="checkbox"> 显示关节</label>
+    </div>
+    <div class="row">
+      <label>区域形状
+        <select id="selShape">
+          <option value="rect">矩形（方框）</option>
+          <option value="circle">圆形</option>
+        </select>
+      </label>
+      <label class="chk"><input id="chkMirror" type="checkbox" checked> 画面镜像</label>
+    </div>
+    <p id="camDetail" class="cam-hint"></p>
+    <div class="hints">
+      <p>🖐 支持双手：<b>每只手的拇指与食指之间</b>会自动形成一个滤镜区域（最多两只手同时生效）　🤏 两指张得越开区域越大　✊ 握拳 = 该手区域关闭</p>
+      <p>🖱 <b>鼠标模式</b>：移动 = 移动区域　滚轮 = 缩放　单击 = 开关滤镜（图片/视频源请用此模式）</p>
+    </div>
+  </section>
+</main>
+
+<video id="src" autoplay playsinline muted></video>
+<script src="js/config.js"></script>
+<script src="js/gestures.js"></script>
+<script src="js/filters.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
